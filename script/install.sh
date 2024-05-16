@@ -10,3 +10,5 @@
 # Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script/install.sh
 # --------------------------------------------------
 
+echo "Fixing the dependencies of xschem, magic, ngspice on Ubuntu"
+
