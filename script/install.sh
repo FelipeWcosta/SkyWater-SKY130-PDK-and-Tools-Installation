@@ -25,13 +25,13 @@ echo "Dependencies fixed!"
 ## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
 
 ### Install xschem
-sudo apt-get -y xschem
+sudo apt-get -y install xschem
 which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
 which xschem && exit 0 || exit 1
 
 
 ### Install magic
-sudo apt-get -y magic
+sudo apt-get -y install magic
 which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
 which magic && exit 0 || exit 1
 
