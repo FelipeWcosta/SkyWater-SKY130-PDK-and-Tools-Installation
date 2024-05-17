@@ -33,7 +33,5 @@ sudo apt-get update -y
 
 [[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
-echo "ngspice dependencies was fixed!"[[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
-
-echo "magic dependencies was fixed!"
+echo "ngspice dependencies was fixed!"
 
