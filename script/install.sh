@@ -18,7 +18,7 @@ sudo apt-get -y upgrade
 echo "Ubuntu Distro was updated!"
 
 echo "Solving some dependencies..."
-sudo apt-get -y install make xterm vim-gtk3 adms autoconf
+sudo apt-get -y install make xterm vim-gtk3 adms autoconf libgtk-3-dev
 [[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
@@ -27,54 +27,51 @@ echo "Dependencies fixed!"
 ### Install xschem
 sudo apt-get -y install xschem
 which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
-which xschem && exit 0 || exit 1
 
 
 ### Install magic
 sudo apt-get -y install magic
 which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
-which magic && exit 0 || exit 1
 
 ### install ngspice
 sudo apt-get -y install ngspice
 which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
-which ngspice && exit 0 || exit 1
 
 ### install netgen
 sudo apt-get -y install netgen-lvs
 which netgen-lvs && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
-which netgen-lvs && exit 0 || exit 1
 
 ### install gnuplot
 sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
-which gnuplot && exit 0 || exit 1
 
 echo "Creating VLSI tools directory..."
 
 cd /
-mkdir vlsi
+sudo mkdir vlsi
 cd vlsi
-mkdir tools
-mkdir pdk
+sudo mkdir tools
+sudo mkdir pdk
 cd tools
 
 ### Install gaw
-wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
+sudo wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
 [[ ! -f "gaw3-20220315.tar.gz" ]] && echo "WARNING: Failed to download gaw!" && exit 1
-tar zxvpf gaw3-20220315.tar.gz
+sudo tar zxvpf gaw3-20220315.tar.gz
 cd gaw3-20220315
-./configure
-make
-make install
+sudo ./configure
+sudo make
+sudo make install
 which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
-which gaw && exit 0 || exit 1
 
 ## Setting up the sky130 pdk
 
+export TOOLS_DIR=/vlsi
+export PDK_ROOT=/vlsi/pdk
+
 echo "Exporting envroinment variables..."
 echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
-echo "export PDK_ROOT=$TOOLS_DIR/pdk" >> ~/.bashrc
+echo "export PDK_ROOT=/vlsi/pdk" >> ~/.bashrc
 source ~/.bashrc
 
 if [ -n "$TOOLS_DIR" ]; then
