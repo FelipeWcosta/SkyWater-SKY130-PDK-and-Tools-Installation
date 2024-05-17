@@ -10,12 +10,12 @@
 # Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script/install.sh
 # ---------------------------------------------------------------------------------------------
 
-## Update the Ubuntu OS
+## Update the Ubuntu Distro
 
-echo "Update of the OS..."
+echo "Updating of Ubuntu Distro..."
 sudo apt-get -y update
 sudo apt-get -y upgrade
-echo "OS was updated!"
+echo "Ubuntu Distro was updated!"
 
 echo "Solving some dependencies..."
 sudo apt-get -y install make xterm vim-gtk3 adms autoconf
@@ -41,16 +41,16 @@ which ngspice && echo "ngspice installation ended successfully!" || echo "ngspic
 which ngspice && exit 0 || exit 1
 
 ### install netgen
-sudo apt-get -y install netgen
-which netgen && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
-which netgen && exit 0 || exit 1
+sudo apt-get -y install netgen-lvs
+which netgen-lvs && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
+which netgen-lvs && exit 0 || exit 1
 
 ### install gnuplot
 sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
 which gnuplot && exit 0 || exit 1
 
-echo "Creating VSLI tools directory..."
+echo "Creating VLSI tools directory..."
 
 cd /
 mkdir vlsi
@@ -58,14 +58,6 @@ cd vlsi
 mkdir tools
 mkdir pdk
 cd tools
-### wget http://opencircuitdesign.com/netgen/archive/netgen-1.5.155.tgz
-### tar zxvpf netgen-1.5.155.tgz
-### cd netgen-1.5.155
-### ./configure
-### make
-### make install
-### which netgen && echo "netgen intallation ended sucessfully!" || echo "netgen installation failed!"
-### which netgen && exit 0 || exit 1
 
 ### Install gaw
 wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
@@ -78,7 +70,7 @@ make install
 which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
 which gaw && exit 0 || exit 1
 
-## Seting up the sky130 pdk
+## Setting up the sky130 pdk
 
 echo "Exporting envroinment variables..."
 echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
@@ -116,7 +108,6 @@ else
 fi
 
 echo "Cloning Open_PDKs tool and setting up for tool flow compatibility..."
-
 if [ ! -d "open_pdks" ]; then
     git clone https://github.com/RTimothyEdwards/open_pdks.git
     cd open_pdks
@@ -156,4 +147,3 @@ END
 echo "Add the following lines to the file called xschemrc to complete the set up..."
 echo "set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models"
 echo "set SKYWATER_STDCELLS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells"
-

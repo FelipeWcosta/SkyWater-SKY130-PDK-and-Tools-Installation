@@ -9,9 +9,12 @@
 # --------------------------------------------------------------------------
 # Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script
 # --------------------------------------------------------------------------
+echo "Updating Ubuntu Distro..."
+sudo apt-get -y update && sudo apt-get -y upgrade
+echo "Ubuntu Distro was updated!"
 
 echo "Dependencies from xschem..."
-sudo apt-get -y install libx11-6 libx11-dev libxrender1 libxrender-dev libxcb1 libx11-xcb-dev libcairo2 libcairo2-dev tcl8.6 tcl8.6-dev tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk mawk tcl-tclreadline xterm vim-gtk3
+sudo apt-get -y install libx11-6 libx11-dev libxrender1 libxrender-dev libxcb1 libx11-xcb-dev libcairo2 libcairo2-dev tcl8.6 tcl8.6-dev tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk mawk tcl-tclreadline xterm vim-gtk3 make
 
 [[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
@@ -34,4 +37,3 @@ sudo apt-get update -y
 [[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
 echo "ngspice dependencies was fixed!"
-
