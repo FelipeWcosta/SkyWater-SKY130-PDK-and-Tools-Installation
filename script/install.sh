@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ---------------------------------------------------------------------------------------------
-# Script     : Installation of SkyWater PDK 130nm and VSLI tools like xschem, magic, ngspice...
+# Script     : Installation of SkyWater PDK 130nm and VLSI tools like xschem, magic, ngspice...
 # Description: Installation script
 # Version    : 0.1
 # Author     : Felipe W. Costa <costaf138@gmail.com>
@@ -18,8 +18,8 @@ sudo apt-get -y upgrade
 echo "OS was updated!"
 
 echo "Solving some dependencies."
-sudo apt-get -y install make xterm vim-gtk3
-[[ $? -ne 0 ]] && echo "WARNING: Failed install the dependencies!" && exit 1
+sudo apt-get -y install make xterm vim-gtk3 adms autoconf
+[[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
 ## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
@@ -56,6 +56,7 @@ cd /
 mkdir vlsi
 cd vlsi
 mkdir tools
+mkdir pdk
 cd tools
 ### wget http://opencircuitdesign.com/netgen/archive/netgen-1.5.155.tgz
 ### tar zxvpf netgen-1.5.155.tgz
@@ -77,6 +78,25 @@ make install
 which gaw && echo "gaw installation ended sucessfully!" || echo "gaw installation failed!"
 which gaw && exit 0 || exit 1
 
+## Seting up the sky130 pdk
 
+echo "Exporting envroinment variables."
+echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
+echo "export PDK_ROOT=$TOOLS_DIR/pdk" >> ~/.bashrc
+source ~/.bashrc
 
+if [ -n "$TOOLS_DIR" ]; then
+	echo "The envroinment variable TOOLS_DIR was set correctly!"
+	exit 0
+else
+	echo "The envroinment variable TOOLS_DIR was not set correctly! "
+	exit 1
+fi
 
+if [ -n "$PDK_ROOT" ]; then
+	echo "The envroinment variable PDK_ROOT was set correctly!"
+	exit 0
+else
+	echo "The envroinment variable PDK_ROOT was not set correctly! "
+	exit 1
+fi
