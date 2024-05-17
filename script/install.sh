@@ -137,7 +137,7 @@ cd ~
 mkdir workarea
 cd workarea
 git clone https://github.com/StefanSchippers/xschem_sky130.git
-cd $TOOLS_DIR/pdks/skywater-pdk/libraries
+cd $TOOLS_DIR/pdk/skywater-pdk/libraries
 sudo cp -r sky130_fd_pr sky130_fd_pr_ngspice
 cd sky130_fd_pr_ngspice/latest
 sudo patch -p2 < ~/workarea/xschem_sky130/sky130_fd_pr.patch
