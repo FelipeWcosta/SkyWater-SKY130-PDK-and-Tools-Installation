@@ -12,7 +12,7 @@
 
 ## Update the Ubuntu OS
 
-echo "Update of the OS."
+echo "Update of the OS..."
 sudo apt-get -y update
 sudo apt-get -y upgrade
 echo "OS was updated!"
@@ -50,7 +50,7 @@ sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended sucessfully!" || echo "gnuplot installation failed!"
 which gnuplot && exit 0 || exit 1
 
-echo "Creating VSLI tools directory"
+echo "Creating VSLI tools directory..."
 
 cd /
 mkdir vlsi
@@ -80,7 +80,7 @@ which gaw && exit 0 || exit 1
 
 ## Seting up the sky130 pdk
 
-echo "Exporting envroinment variables."
+echo "Exporting envroinment variables..."
 echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
 echo "export PDK_ROOT=$TOOLS_DIR/pdk" >> ~/.bashrc
 source ~/.bashrc
@@ -99,4 +99,33 @@ if [ -n "$PDK_ROOT" ]; then
 else
 	echo "The envroinment variable PDK_ROOT was not set correctly! "
 	exit 1
+fi
+
+
+echo "Downloading libraries..."
+cd $PDK_ROOT
+if [ ! -d "skywater-pdk" ]; then
+    git clone https://github.com/google/skywater-pdk
+    cd skywater-pdk
+    git submodule init libraries/sky130_fd_pr/latest
+    git submodule init libraries/sky130_fd_sc_hd/latest
+    git submodule update
+    cd ..
+else
+    echo "skywater-pdk directory already exists, skipping clone..."
+fi
+
+echo "Cloning Open_PDKs tool and setting up for tool flow compatibility..."
+
+if [ ! -d "open_pdks" ]; then
+    git clone https://github.com/RTimothyEdwards/open_pdks.git
+    cd open_pdks
+    git checkout 32cdb2097fd9a629c91e8ea33e1f6de08ab25946
+    ./configure --with-sky130-source=$PDK_ROOT/skywater-pdk/libraries --with-sky130-local-path=$PDK_ROOT
+    cd sky130
+    make
+    make install-local
+    cd ..
+else
+    echo "Open_PDKs directory already exists, skipping clone..."
 fi
