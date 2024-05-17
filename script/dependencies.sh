@@ -11,7 +11,7 @@
 # --------------------------------------------------------------------------
 
 echo "Dependencies from xschem..."
-sudo apt-get -y install libx11-6 libx11-dev libxrender1 libxrender-dev libxcb1 libx11-xcb-dev libcairo2 libcairo2-dev tcl8.6 tcl8.6-dev tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk mawk tcl-tclreadline xterm vim-gtk
+sudo apt-get -y install libx11-6 libx11-dev libxrender1 libxrender-dev libxcb1 libx11-xcb-dev libcairo2 libcairo2-dev tcl8.6 tcl8.6-dev tk8.6 tk8.6-dev flex bison libxpm4 libxpm-dev gawk mawk tcl-tclreadline xterm vim-gtk3
 
 [[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
