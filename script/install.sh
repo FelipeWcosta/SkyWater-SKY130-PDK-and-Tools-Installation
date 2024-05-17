@@ -17,7 +17,7 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 echo "OS was updated!"
 
-echo "Solving some dependencies."
+echo "Solving some dependencies..."
 sudo apt-get -y install make xterm vim-gtk3 adms autoconf
 [[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
@@ -26,28 +26,28 @@ echo "Dependencies fixed!"
 
 ### Install xschem
 sudo apt-get -y xschem
-which xschem && echo "xschem installation ended sucessfully!" || echo "xschem installation failed!"
+which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
 which xschem && exit 0 || exit 1
 
 
 ### Install magic
 sudo apt-get -y magic
-which magic && echo "magic installation ended sucessfully!" || echo "magic installation failed!"
+which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
 which magic && exit 0 || exit 1
 
 ### install ngspice
 sudo apt-get -y install ngspice
-which ngspice && echo "ngspice installation ended sucessfully!" || echo "ngspice installation failed!"
+which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
 which ngspice && exit 0 || exit 1
 
 ### install netgen
 sudo apt-get -y install netgen
-which netgen && echo "netgen installation ended sucessfully!" || echo "netgen installation failed!"
+which netgen && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
 which netgen && exit 0 || exit 1
 
 ### install gnuplot
 sudo apt-get -y install gnuplot
-which gnuplot && echo "gnuplot installation ended sucessfully!" || echo "gnuplot installation failed!"
+which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
 which gnuplot && exit 0 || exit 1
 
 echo "Creating VSLI tools directory..."
@@ -75,7 +75,7 @@ cd gaw3-20220315
 ./configure
 make
 make install
-which gaw && echo "gaw installation ended sucessfully!" || echo "gaw installation failed!"
+which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
 which gaw && exit 0 || exit 1
 
 ## Seting up the sky130 pdk
@@ -129,3 +129,31 @@ if [ ! -d "open_pdks" ]; then
 else
     echo "Open_PDKs directory already exists, skipping clone..."
 fi
+
+[ -d "$PDK_ROOT/skywater-pdk" ] && echo "Skywater PDK cloned successfully!" || echo "Skywater PDK cloning failed!"
+[ -d "$PDK_ROOT/open_pdks" ] && echo "Open_PDKs cloned and set up successfully!" || echo "Open_PDKs setup failed!"
+
+cd ~
+mkdir workarea
+cd workarea
+git clone https://github.com/StefanSchippers/xschem_sky130.git
+cd $TOOLS_DIR/pdks/skywater-pdk/libraries
+sudo cp -r sky130_fd_pr sky130_fd_pr_ngspice
+cd sky130_fd_pr_ngspice/latest
+sudo patch -p2 < ~/workarea/xschem_sky130/sky130_fd_pr.patch
+cd ~/workarea
+cp $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc .magicrc
+
+cat >> .spiceinit << 'END'
+set ngbehavior=hs
+END
+
+cd xschem_sky130
+cat >> .spiceinit << 'END'
+set ngbehavior=hs
+END
+
+echo "Add the following lines to the file called xschemrc to complete the set up..."
+echo "set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models"
+echo "set SKYWATER_STDCELLS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells"
+
