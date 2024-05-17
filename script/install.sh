@@ -18,7 +18,7 @@ sudo apt-get -y upgrade
 echo "OS was updated!"
 
 echo "Solving some dependencies."
-sudo apt-get -y install make xterm
+sudo apt-get -y install make xterm vim-gtk3
 [[ $? -ne 0 ]] && echo "WARNING: Failed install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
@@ -44,6 +44,11 @@ which ngspice && exit 0 || exit 1
 sudo apt-get -y install netgen
 which netgen && echo "netgen installation ended sucessfully!" || echo "netgen installation failed!"
 which netgen && exit 0 || exit 1
+
+### install gnuplot
+sudo apt-get -y install gnuplot
+which gnuplot && echo "gnuplot installation ended sucessfully!" || echo "gnuplot installation failed!"
+which gnuplot && exit 0 || exit 1
 
 echo "Creating VSLI tools directory"
 
