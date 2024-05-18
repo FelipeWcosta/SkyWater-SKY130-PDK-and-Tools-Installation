@@ -30,7 +30,7 @@ if [ ! -d "vlsi" ]; then
 else
 	echo "vlsi directory already exists. Skipping..."
 fi
-cd vlsi
+cd ~/vlsi
 if [ ! -d "tools" ]; then
 	mkdir tools
 else
@@ -47,7 +47,6 @@ cd ~/vlsi/tools
 ## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
 
 ### Install xschem
-### sudo apt-get -y install xschem ### This way to install xschem may have some issues
 git clone https://github.com/StefanSchippers/xschem
 cd xschem
 sudo ./configure
@@ -58,7 +57,6 @@ cd ..
 
 
 ### Install magic
-### sudo apt-get -y install magic ### This way to install magic may have some issues
 wget http://opencircuitdesign.com/magic/archive/magic-8.3.78.tgz
 tar zxvpf magic-8.3.78.tgz
 sudo ./configure
@@ -67,8 +65,7 @@ sudo make install
 which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
 cd ..
 
-### install ngspice
-### sudo apt-get -y install ngspice ### This way to install ngspice may have some issues
+### Install ngspice
 wget -O ngspice-33.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ngspice-33.tar.gz/download
 tar zxvpf ngspice-33.tar.gz
 cd ngspice-33
@@ -83,11 +80,16 @@ sudo make install
 which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
 cd ../../
 
-### install netgen
-sudo apt-get -y install netgen-lvs
-which netgen-lvs && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
+### Install netgen
+wget http://opencircuitdesign.com/netgen/archive/netgen-1.5.155.tgz
+tar zxvpf netgen-1.5.155.tgz
+cd netgen-1.5.155
+sudo ./configure
+sudo make
+sudo make install
+which netgen && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
 
-### install gnuplot
+### Install gnuplot
 sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
 
