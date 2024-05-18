@@ -44,30 +44,30 @@ else
 	echo "/vlsi/pdk directory already exists. Skipping..."
 fi
 
-cd ~/vlsi/tools
-
 ## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
 
+
 ### Install xschem
+cd ~/vlsi/tools
 git clone https://github.com/StefanSchippers/xschem
 cd xschem
 sudo ./configure
 sudo make
 sudo make install
 which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
-cd ..
 
 
 ### Install magic
+cd ~/vlsi/tools
 wget http://opencircuitdesign.com/magic/archive/magic-8.3.78.tgz
 tar zxvpf magic-8.3.78.tgz
 sudo ./configure
 sudo make
 sudo make install
 which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
-cd ..
 
 ### Install ngspice
+cd ~/vlsi/tools
 wget -O ngspice-33.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ngspice-33.tar.gz/download
 tar zxvpf ngspice-33.tar.gz
 cd ngspice-33
@@ -80,9 +80,9 @@ sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with
 sudo make -j$(nproc) CFLAGS=-std=c99
 sudo make install
 which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
-cd ../../
 
 ### Install netgen
+cd ~/vlsi/tools
 wget http://opencircuitdesign.com/netgen/archive/netgen-1.5.155.tgz
 tar zxvpf netgen-1.5.155.tgz
 cd netgen-1.5.155
@@ -96,6 +96,7 @@ sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
 
 ### Install gaw
+cd ~/vlsi/tools
 wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
 [[ ! -f "gaw3-20220315.tar.gz" ]] && echo "WARNING: Failed to download gaw!" && exit 1
 tar zxvpf gaw3-20220315.tar.gz
@@ -143,6 +144,7 @@ else
     echo "skywater-pdk directory already exists, skipping clone..."
 fi
 
+cd $PDK_ROOT
 echo "Cloning Open_PDKs tool and setting up for tool flow compatibility..."
 if [ ! -d "open_pdks" ]; then
     git clone https://github.com/RTimothyEdwards/open_pdks.git
