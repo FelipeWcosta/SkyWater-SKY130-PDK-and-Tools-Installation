@@ -2,9 +2,9 @@
 # ---------------------------------------------------------------------------------------------
 # Script     : Installation of SkyWater PDK 130nm and VLSI tools like xschem, magic, ngspice...
 # Description: Installation script
-# Version    : 0.1
+# Version    : 0.2
 # Author     : Felipe W. Costa <costaf138@gmail.com>
-# Date       : 16/05/2024
+# Date       : 18/05/2024
 # License    : MIT License
 # ---------------------------------------------------------------------------------------------
 # Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script/install.sh
@@ -48,10 +48,22 @@ which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplo
 echo "Creating VLSI tools directory..."
 
 cd /
-sudo mkdir vlsi
+if [ ! -d "vlsi" ]; then
+	sudo mkdir vlsi
+else
+	echo "vlsi directory already exists. Skipping..."
+fi
 cd vlsi
-sudo mkdir tools
-sudo mkdir pdk
+if [ ! -d "tools"]; then
+	sudo mkdir tools
+else
+	echo "/vlsi/tools directory already exists. Skipping..."
+fi
+if [ ! -d "pdk" ]; then
+	sudo mkdir pdk
+else
+	echo "/vlsi/pdk directory already exists. Skipping..."
+fi
 cd tools
 
 ### Install gaw
