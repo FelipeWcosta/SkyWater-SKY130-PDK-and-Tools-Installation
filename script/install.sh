@@ -69,22 +69,22 @@ which gaw && echo "gaw installation ended successfully!" || echo "gaw installati
 export TOOLS_DIR=/vlsi
 export PDK_ROOT=/vlsi/pdk
 
-echo "Exporting envroinment variables..."
+echo "Exporting environment variables..."
 echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
 echo "export PDK_ROOT=/vlsi/pdk" >> ~/.bashrc
 source ~/.bashrc
 
 if [ -n "$TOOLS_DIR" ]; then
-	echo "The envroinment variable TOOLS_DIR was set correctly!"
+	echo "The environment variable TOOLS_DIR was set correctly!"
 else
-	echo "The envroinment variable TOOLS_DIR was not set correctly! "
+	echo "The environment variable TOOLS_DIR was not set correctly! "
 	exit 1
 fi
 
 if [ -n "$PDK_ROOT" ]; then
-	echo "The envroinment variable PDK_ROOT was set correctly!"
+	echo "The environment variable PDK_ROOT was set correctly!"
 else
-	echo "The envroinment variable PDK_ROOT was not set correctly! "
+	echo "The environment variable PDK_ROOT was not set correctly! "
 	exit 1
 fi
 
