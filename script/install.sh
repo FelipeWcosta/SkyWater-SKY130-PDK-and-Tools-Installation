@@ -24,6 +24,8 @@ sudo apt-get -y install make xterm vim-gtk3 adms autoconf libgtk-3-dev
 [[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
+echo "Creating VLSI tools directory..."
+
 cd ~
 if [ ! -d "vlsi" ]; then
 	mkdir vlsi
@@ -92,8 +94,6 @@ which netgen && echo "netgen installation ended successfully!" || echo "netgen i
 ### Install gnuplot
 sudo apt-get -y install gnuplot
 which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
-
-echo "Creating VLSI tools directory..."
 
 ### Install gaw
 wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
