@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------------------------
 # Script     : Installation of SkyWater PDK 130nm and VLSI tools like xschem, magic, ngspice...
 # Description: Installation script
-# Version    : 0.2
+# Version    : 0.3
 # Author     : Felipe W. Costa <costaf138@gmail.com>
 # Date       : 18/05/2024
 # License    : MIT License
@@ -54,8 +54,14 @@ cd xschem
 sudo ./configure
 sudo make
 sudo make install
-which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
-
+which xschem
+if [ $? -eq 0 ]; then
+	echo "xschem installation ended successfully!"
+else
+	echo "xschem installation failed!"
+	exit 1
+fi
+sleep 5
 
 ### Install magic
 cd ~/vlsi/tools
@@ -65,7 +71,24 @@ cd magic-8.3.78
 sudo ./configure
 sudo make
 sudo make install
-which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
+which magic
+if [ $? -eq 0 ]; then
+	echo "magic installation ended successfully!"
+else
+	echo "magic installation failed!"
+	exit 1
+fi
+sleep 5
+
+### Install adms
+cd ~/vlsi/tools
+wget -O adms-2.3.6.tar.gz https://sourceforge.net/projects/mot-adms/files/adms-source/2.3/adms-2.3.6.tar.gz/download
+tar zxvpf adms-2.3.6.tar.gz
+cd adms-2.3.6
+sudo ./configure
+sudo make
+sudo make install
+sleep 5
 
 ### Install ngspice
 cd ~/vlsi/tools
@@ -75,10 +98,17 @@ cd ngspice-33
 ./autogen.sh --adms
 mkdir release
 cd release
-sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-adms
+sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes
 sudo make
 sudo make install
-which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
+which ngspice
+if [ $? -eq 0 ]; then
+	echo "ngspice installation ended successfully!"
+else
+	echo "ngspice installation failed!"
+	exit 1
+fi
+sleep 5
 
 ### Install netgen
 cd ~/vlsi/tools
@@ -88,11 +118,17 @@ cd netgen-1.5.155
 sudo ./configure
 sudo make
 sudo make install
-which netgen && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
+which netgen
+if [ $? -eq 0 ]; then
+	echo "netgen installation ended successfully!"
+else
+	echo "netgen installation failed!"
+	exit 1
+fi
+sleep 5
 
 ### Install gnuplot
 sudo apt-get -y install gnuplot
-which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
 
 ### Install gaw
 cd ~/vlsi/tools
@@ -103,7 +139,14 @@ cd gaw3-20220315
 sudo ./configure
 sudo make
 sudo make install
-which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
+which gaw
+if [ $? -eq 0 ]; then
+	echo "gaw installation ended successfully!"
+else
+	echo "gaw installation failed!"
+	exit 1
+fi
+sleep 5
 
 ## Setting up the sky130 pdk
 
@@ -128,6 +171,7 @@ else
 	echo "The environment variable PDK_ROOT was not set correctly! "
 	exit 1
 fi
+sleep 5
 
 
 echo "Downloading libraries..."
@@ -170,7 +214,7 @@ cp -r sky130_fd_pr sky130_fd_pr_ngspice
 cd sky130_fd_pr_ngspice/latest
 patch -p2 < ~/workarea/xschem_sky130/sky130_fd_pr.patch
 cd ~/workarea
-cp $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc ~/workarea/xschem_sky130/.magicrc
+cp $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc ~/workarea/xschem_sky130/sky130A.magicrc
 
 cat >> .spiceinit << 'END'
 set ngbehavior=hs
@@ -181,6 +225,9 @@ cat >> .spiceinit << 'END'
 set ngbehavior=hs
 END
 
-echo "Add the following lines to the file called xschemrc to complete the set up..."
+echo "set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models" >> ~/workarea/xschem_sky130/xschemrc
+echo "set SKYWATER_STDCELLS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells" >> ~/workarea/xschem_sky130/xschemrc
+
+echo "If the skywater models and standard cells are not setting, add the following lines to the file called xschemrc to complete the set up..."
 echo "set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models"
 echo "set SKYWATER_STDCELLS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells"
