@@ -24,31 +24,6 @@ sudo apt-get -y install make xterm vim-gtk3 adms autoconf libgtk-3-dev
 [[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
-## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
-
-### Install xschem
-sudo apt-get -y install xschem
-which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
-
-
-### Install magic
-sudo apt-get -y install magic
-which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
-
-### install ngspice
-sudo apt-get -y install ngspice
-which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
-
-### install netgen
-sudo apt-get -y install netgen-lvs
-which netgen-lvs && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
-
-### install gnuplot
-sudo apt-get -y install gnuplot
-which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
-
-echo "Creating VLSI tools directory..."
-
 cd ~
 if [ ! -d "vlsi" ]; then
 	mkdir vlsi
@@ -56,7 +31,7 @@ else
 	echo "vlsi directory already exists. Skipping..."
 fi
 cd vlsi
-if [ ! -d "tools"]; then
+if [ ! -d "tools" ]; then
 	mkdir tools
 else
 	echo "/vlsi/tools directory already exists. Skipping..."
@@ -67,7 +42,56 @@ else
 	echo "/vlsi/pdk directory already exists. Skipping..."
 fi
 
-cd tools
+cd ~/vlsi/tools
+
+## Install tools (xschem, magic, ngspice, netgen, sky130 pdk)
+
+### Install xschem
+### sudo apt-get -y install xschem ### This way to install xschem may have some issues
+git clone https://github.com/StefanSchippers/xschem
+cd xschem
+sudo ./configure
+sudo make
+sudo make install
+which xschem && echo "xschem installation ended successfully!" || echo "xschem installation failed!"
+cd ..
+
+
+### Install magic
+### sudo apt-get -y install magic ### This way to install magic may have some issues
+wget http://opencircuitdesign.com/magic/archive/magic-8.3.78.tgz
+tar zxvpf magic-8.3.78.tgz
+sudo ./configure
+sudo make
+sudo make install
+which magic && echo "magic installation ended successfully!" || echo "magic installation failed!"
+cd ..
+
+### install ngspice
+### sudo apt-get -y install ngspice ### This way to install ngspice may have some issues
+wget -O ngspice-33.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ngspice-33.tar.gz/download
+tar zxvpf ngspice-33.tar.gz
+cd ngspice-33
+wget -O ng_adms_va.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ng_adms_va.tar.gz/download
+tar zxvpf ng_adms_va.tar.gz
+./autogen.sh --adms
+mkdir release
+cd release
+sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-adms CFLAGS=-std=c99
+sudo make -j$(nproc) CFLAGS=-std=c99
+sudo make install
+which ngspice && echo "ngspice installation ended successfully!" || echo "ngspice installation failed!"
+cd ../../
+
+### install netgen
+sudo apt-get -y install netgen-lvs
+which netgen-lvs && echo "netgen installation ended successfully!" || echo "netgen installation failed!"
+
+### install gnuplot
+sudo apt-get -y install gnuplot
+which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplot installation failed!"
+
+echo "Creating VLSI tools directory..."
 
 ### Install gaw
 wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
