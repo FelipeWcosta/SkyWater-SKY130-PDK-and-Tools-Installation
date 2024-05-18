@@ -15,6 +15,8 @@
 echo "Updating of Ubuntu Distro..."
 sudo apt-get -y update
 sudo apt-get -y upgrade
+sudo apt -y update
+sudo apt -y upgrade
 echo "Ubuntu Distro was updated!"
 
 echo "Solving some dependencies..."
@@ -47,43 +49,43 @@ which gnuplot && echo "gnuplot installation ended successfully!" || echo "gnuplo
 
 echo "Creating VLSI tools directory..."
 
-cd /
+cd ~
 if [ ! -d "vlsi" ]; then
-	sudo mkdir vlsi
+	mkdir vlsi
 else
 	echo "vlsi directory already exists. Skipping..."
 fi
 cd vlsi
 if [ ! -d "tools"]; then
-	sudo mkdir tools
+	mkdir tools
 else
 	echo "/vlsi/tools directory already exists. Skipping..."
 fi
 if [ ! -d "pdk" ]; then
-	sudo mkdir pdk
+	mkdir pdk
 else
 	echo "/vlsi/pdk directory already exists. Skipping..."
 fi
 cd tools
 
 ### Install gaw
-sudo wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
+wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz -O gaw3-20220315.tar.gz
 [[ ! -f "gaw3-20220315.tar.gz" ]] && echo "WARNING: Failed to download gaw!" && exit 1
-sudo tar zxvpf gaw3-20220315.tar.gz
+tar zxvpf gaw3-20220315.tar.gz
 cd gaw3-20220315
-sudo ./configure
-sudo make
-sudo make install
+./configure
+make
+make install
 which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
 
 ## Setting up the sky130 pdk
 
-export TOOLS_DIR=/vlsi
-export PDK_ROOT=/vlsi/pdk
+export TOOLS_DIR=~/vlsi
+export PDK_ROOT=~/vlsi/pdk
 
 echo "Exporting environment variables..."
-echo "export TOOLS_DIR=/vlsi" >> ~/.bashrc
-echo "export PDK_ROOT=/vlsi/pdk" >> ~/.bashrc
+echo "export TOOLS_DIR=~/vlsi" >> ~/.bashrc
+echo "export PDK_ROOT=~/vlsi/pdk" >> ~/.bashrc
 source ~/.bashrc
 
 if [ -n "$TOOLS_DIR" ]; then
@@ -104,11 +106,11 @@ fi
 echo "Downloading libraries..."
 cd $PDK_ROOT
 if [ ! -d "skywater-pdk" ]; then
-    sudo git clone https://github.com/google/skywater-pdk
+    git clone https://github.com/google/skywater-pdk
     cd skywater-pdk
-    sudo git submodule init libraries/sky130_fd_pr/latest
-    sudo git submodule init libraries/sky130_fd_sc_hd/latest
-    sudo git submodule update
+    git submodule init libraries/sky130_fd_pr/latest
+    git submodule init libraries/sky130_fd_sc_hd/latest
+    git submodule update
     cd ..
 else
     echo "skywater-pdk directory already exists, skipping clone..."
@@ -116,13 +118,13 @@ fi
 
 echo "Cloning Open_PDKs tool and setting up for tool flow compatibility..."
 if [ ! -d "open_pdks" ]; then
-    sudo git clone https://github.com/RTimothyEdwards/open_pdks.git
+    git clone https://github.com/RTimothyEdwards/open_pdks.git
     cd open_pdks
-    sudo git checkout 32cdb2097fd9a629c91e8ea33e1f6de08ab25946
-    sudo ./configure --with-sky130-source=$PDK_ROOT/skywater-pdk/libraries --with-sky130-local-path=$PDK_ROOT
+    git checkout 32cdb2097fd9a629c91e8ea33e1f6de08ab25946
+    ./configure --with-sky130-source=$PDK_ROOT/skywater-pdk/libraries --with-sky130-local-path=$PDK_ROOT
     cd sky130
-    sudo make
-    sudo make install-local
+    make
+    make install-local
     cd ..
 else
     echo "Open_PDKs directory already exists, skipping clone..."
@@ -136,11 +138,11 @@ mkdir workarea
 cd workarea
 git clone https://github.com/StefanSchippers/xschem_sky130.git
 cd $TOOLS_DIR/pdk/skywater-pdk/libraries
-sudo cp -r sky130_fd_pr sky130_fd_pr_ngspice
+cp -r sky130_fd_pr sky130_fd_pr_ngspice
 cd sky130_fd_pr_ngspice/latest
-sudo patch -p2 < ~/workarea/xschem_sky130/sky130_fd_pr.patch
+patch -p2 < ~/workarea/xschem_sky130/sky130_fd_pr.patch
 cd ~/workarea
-cp $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc .magicrc
+cp $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc ~/workarea/xschem_sky130/.magicrc
 
 cat >> .spiceinit << 'END'
 set ngbehavior=hs
