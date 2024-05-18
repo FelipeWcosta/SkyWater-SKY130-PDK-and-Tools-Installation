@@ -13,5 +13,6 @@ This repository contains a step guide to set up SkyWater SKY130 PDK and some too
 * **WARNING:** At the end of the execution of the scripts do not forget to add the following two lines into a file called `xschemrc` that could be find in this directory `~/workarea/xschem_sky130`:
 	* `set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models`;
 	* `set SKYWATER_STDCELLS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells`.
+* If `xschem` do not recognize the envroinment variables you must replace them by the path of the directory.
 * You can navigate to workarea directory (`~/workarea/xschem_sky130`) and run `xschem` command to explore some examples of the technology.
 * This installation method was tested on Ubuntu 24.04 LTS, it must work in versions like 22.04 LTS and WSL as well.

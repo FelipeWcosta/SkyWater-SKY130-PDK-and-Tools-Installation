@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# --------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Script     : Solving some dependencies that could occur in the VLSI set up
 # Description: Fixing dependencies
 # Version    : 0.1
 # Author     : Felipe W. Costa <costaf138@gmail.com>
 # Date       : 17/05/2024
-# License    : GNU/GPL v3.0
-# --------------------------------------------------------------------------
-# Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script
-# --------------------------------------------------------------------------
+# License    : MIT License
+# --------------------------------------------------------------------------------
+# Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script/dependencies.sh
+# --------------------------------------------------------------------------------
 echo "Updating Ubuntu Distro..."
 sudo apt-get -y update && sudo apt-get -y upgrade
 echo "Ubuntu Distro was updated!"
