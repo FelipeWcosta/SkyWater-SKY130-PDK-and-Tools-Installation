@@ -61,6 +61,7 @@ which xschem && echo "xschem installation ended successfully!" || echo "xschem i
 cd ~/vlsi/tools
 wget http://opencircuitdesign.com/magic/archive/magic-8.3.78.tgz
 tar zxvpf magic-8.3.78.tgz
+cd magic-8.3.78
 sudo ./configure
 sudo make
 sudo make install
@@ -71,8 +72,6 @@ cd ~/vlsi/tools
 wget -O ngspice-33.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ngspice-33.tar.gz/download
 tar zxvpf ngspice-33.tar.gz
 cd ngspice-33
-wget -O ng_adms_va.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/33/ng_adms_va.tar.gz/download
-tar zxvpf ng_adms_va.tar.gz
 ./autogen.sh --adms
 mkdir release
 cd release
