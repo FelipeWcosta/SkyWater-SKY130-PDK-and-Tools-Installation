@@ -66,6 +66,7 @@ if [ ! -d "pdk" ]; then
 else
 	echo "/vlsi/pdk directory already exists. Skipping..."
 fi
+
 cd tools
 
 ### Install gaw
@@ -73,9 +74,9 @@ wget https://github.com/edneymatheus/gaw3-20220315/raw/main/gaw3-20220315.tar.gz
 [[ ! -f "gaw3-20220315.tar.gz" ]] && echo "WARNING: Failed to download gaw!" && exit 1
 tar zxvpf gaw3-20220315.tar.gz
 cd gaw3-20220315
-./configure
-make
-make install
+sudo ./configure
+sudo make
+sudo make install
 which gaw && echo "gaw installation ended successfully!" || echo "gaw installation failed!"
 
 ## Setting up the sky130 pdk
