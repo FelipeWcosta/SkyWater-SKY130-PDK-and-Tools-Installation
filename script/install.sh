@@ -7,17 +7,17 @@
 # Date       : 18/05/2024
 # License    : MIT License
 # ---------------------------------------------------------------------------------------------
-# Use        : ~/SkyWater-SKY130-PDK-and-Tools-Installation/script/install.sh
+# Use        : ~/vlsi-tools/script/install.sh
 # ---------------------------------------------------------------------------------------------
 
-## Update the Ubuntu Distro
+## Update the  GNU/Linux
 
-echo "Updating of Ubuntu Distro..."
+echo "Updating of GNU/Linux..."
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt -y update
 sudo apt -y upgrade
-echo "Ubuntu Distro was updated!"
+echo "GNU/Linux was updated!"
 
 echo "Solving some dependencies..."
 sudo apt-get -y install make xterm vim-gtk3 adms autoconf libgtk-3-dev
