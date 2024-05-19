@@ -2,9 +2,9 @@
 # -------------------------------------------------------------------------------
 # Script     : Solving some dependencies that could occur in the VLSI set up
 # Description: Fixing dependencies
-# Version    : 0.2
+# Version    : 0.3
 # Author     : Felipe W. Costa <costaf138@gmail.com>
-# Date       : 17/05/2024
+# Date       : 19/05/2024
 # License    : MIT License
 # --------------------------------------------------------------------------------
 # Use        : ~/vlsi-tools/script/dependencies.sh
@@ -28,18 +28,23 @@ sudo apt-get -y install m4 tcsh csh libx11-dev tcl-dev tk-dev libcairo2-dev mesa
 echo "magic dependencies was fixed!"
 
 echo "Dependencies from ngspice..."
-sudo apt-get -y install adms autoconf libtool libxaw7-dev build-essential libc6-dev
+sudo apt-get -y install autoconf libtool libxaw7-dev build-essential libc6-dev
+sudo apt-get -y install libreadline-dev
 sudo apt update
 sudo apt upgrade
 sudo apt-get -y install manpages-dev man-db manpages-posix-dev libreadline6-dev
 sudo apt-get update -y
+
 
 [[ $? -ne 0 ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
 echo "ngspice dependencies was fixed!"
 
 echo "Dependencies from adms"
-sudo apt-get -y install automake gperf libxm12 libxm12-dev libxm1-libxm1-perl libgd-perl
+sudo apt-get -y install automake
+sudo apt-get -y install gperf
+sudo apt-get -y install libxm12 libxm12-dev
+sudo apt-get -y install libgd-perl
 
 [[ $? -ne 0  ]] && echo "WARNING: The dependencies was not fixed" && exit 1
 
