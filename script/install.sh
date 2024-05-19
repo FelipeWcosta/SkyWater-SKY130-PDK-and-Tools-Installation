@@ -98,7 +98,7 @@ cd ngspice-33
 ./autogen.sh --adms
 mkdir release
 cd release
-sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes
+sudo ../configure --with-x --enable-xspice --disable-debug --enable-cider --with-readline=yes --enable-adms
 sudo make
 sudo make install
 which ngspice
