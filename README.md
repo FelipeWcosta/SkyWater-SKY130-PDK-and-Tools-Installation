@@ -9,7 +9,6 @@ This repository contains a step guide to set up SkyWater SKY130 PDK and some too
 	* ngspice;
 	* gaw;
 	* netgen;
-	* gnuplot;
 	* sky130 pdk.
 * **WARNING:** At the end of the execution of the scripts do not forget to add the following two lines into a file called `xschemrc` (in case of them are not setting) that could be find in this directory `~/workarea/xschem_sky130`:
 	* `set SKYWATER_MODELS $TOOLS_DIR/pdk/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models`;
