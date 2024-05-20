@@ -21,6 +21,7 @@ echo "GNU/Linux was updated!"
 
 echo "Solving some dependencies..."
 sudo apt-get -y install make xterm vim-gtk3 adms autoconf libgtk-3-dev
+sudo apt-get -y install wget
 [[ $? -ne 0 ]] && echo "WARNING: Failed to install the dependencies!" && exit 1
 echo "Dependencies fixed!"
 
