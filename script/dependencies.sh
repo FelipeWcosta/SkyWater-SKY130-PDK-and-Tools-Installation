@@ -2,7 +2,7 @@
 # -------------------------------------------------------------------------------
 # Script     : Solving some dependencies that could occur in the VLSI set up
 # Description: Fixing dependencies
-# Version    : 0.3
+# Version    : 1.0
 # Author     : Felipe W. Costa <costaf138@gmail.com>
 # Date       : 19/05/2024
 # License    : MIT License

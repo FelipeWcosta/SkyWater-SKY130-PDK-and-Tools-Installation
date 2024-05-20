@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------------------------
 # Script     : Installation of SkyWater PDK 130nm and VLSI tools like xschem, magic, ngspice...
 # Description: Installation script
-# Version    : 0.3
+# Version    : 1.0
 # Author     : Felipe W. Costa <costaf138@gmail.com>
 # Date       : 18/05/2024
 # License    : MIT License
